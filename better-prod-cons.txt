@@ -1,0 +1,88 @@
+//better producer consumer
+#include<bits/stdc++.h>
+using namespace std ;
+int s = 1;
+int n = 0;
+int e = 4;
+int buffer[4];
+
+int wait(int);
+int signall(int);
+void producer();
+void consumer();
+void print();
+
+int main(){
+   
+    int a;
+    int exiti = 0;
+    while(exiti == 0){
+        cout << "Producer (1) or consumer (2) or exit (3)" ;
+        cin >> a;
+        switch(a){
+            case 1 :
+            // buffer not full
+            if(e > 0){
+            producer();
+            }
+            else{
+                cout<<"Buffer if full";
+            }
+            break;
+            case 2:
+            // buffer empty
+            if(n > 0){
+            consumer();
+            }
+            else{
+                cout<<"Buffer is empty";
+                
+            }
+            break;
+            case 3:
+                exiti = 1;
+            default:
+            cout<<"oops";
+    }
+    }
+    
+    return 0;
+}
+
+int wait(int s){
+    --s;
+    return s;
+}
+
+int signall(int s){
+    // cout << s;
+    ++s;
+    // cout << s;
+    return s;
+}
+
+void producer(){
+    e = wait(e);
+    s = wait(s);
+    // int data;
+    cout << "Enter the data";
+    cin >> buffer[n];
+    s = signall(s);
+    n = signall(n);
+    print();
+}
+
+void consumer(){
+    n = wait(n);
+    s = wait(s);
+    s = signall(s);
+    e = signall(e);
+    print();
+}
+
+void print(){
+    int i;
+    for(i = 0; i < n; i++){
+        cout << buffer[i] << " ";
+    }
+}
